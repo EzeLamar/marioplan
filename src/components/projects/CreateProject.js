@@ -12,7 +12,7 @@ class CreateProject extends Component {
         e.preventDefault();
         console.log(this.props);
         this.props.createProject(this.state);
-        //this.props.history.push('/');
+        this.props.history.push('/');
     }
 
     handleChange = (e) => {

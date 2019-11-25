@@ -1,4 +1,5 @@
 import firebase from '../../config/fbConfig'
+import projectReducer from '../reducers/projectReducer';
 
 export const createProject = (data) => {
     return (dispatch, getState) => {
@@ -26,8 +27,7 @@ export const getProjects = () => {
         const firestore = firebase.firestore();
         firestore.collection('projects').get()
         .then(querySnapshot => {
-            const projects = querySnapshot.docs.map(doc => doc.data());
-            console.log("obtenidos de DB", projects);
+            const projects = querySnapshot.docs.map(doc => { return { ...doc.data(), id: doc.id} });
             dispatch({type: 'GET_PROJECTS', projects});
         }).catch((err) => {
             dispatch({ type: 'GET_PROJECT_ERROR', err });

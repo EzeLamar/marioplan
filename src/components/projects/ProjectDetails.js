@@ -1,21 +1,44 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
 const ProjectDetails = (props) => {
     const id = props.match.params.id;
-    return (
-        <div className="container section project-details">
-            <div className="card z-depth-0">
-                <div className="card-content">
-                    <span className="card-title">Project Title - {id}</span>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt consequatur officia dolorum doloribus placeat. Dolorem amet, inventore blanditiis cum omnis neque ullam ad quia deleniti, veniam vel, minima laborum nemo?</p>
+    const { project } = props;
+    let content;
+    project ?
+        content =
+            <div className="container section project-details">
+                <div className="card z-depth-0">
+                    <div className="card-content">
+                        <span className="card-title">{project.title} - {id}</span>
+                        <p>{project.content}</p>
+                    </div>
+                    <div className="card action grey lighten-4 grey-text">
+                        <div>Posted by {project.authorLastName}, {project.authorFirstName}</div>
+                        <div>{project.createAt.seconds}</div>
+                    </div>
                 </div>
-                <div className="card action grey lighten-4 grey-text">
-                    <div>Posted by The Net Ninja</div>
-                    <div>2nd September, 2am</div>
+            </div> :
+        content =
+            <div className="container section project-details">
+                <div className="card z-depth-0">
+                    <div className="card-content">
+                        <span className="card-title">Nada que mostrar</span>
+                    </div>
                 </div>
             </div>
-        </div>
-    );
+    return content;
 }
 
-export default ProjectDetails;
+const mapStateToProps = (state, ownProps) => {
+    console.log('state',state);
+    const id = ownProps.match.params.id;
+    const projects = state.project.projects;
+    console.log('projects',projects);
+    const project  = projects&&projects.find(project => project.id === id);
+    return {
+        project
+    }
+}
+
+export default connect(mapStateToProps)(ProjectDetails);

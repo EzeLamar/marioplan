@@ -9,8 +9,10 @@ import { firestoreConnect } from 'react-redux-firebase'
 
 class Dashboard extends Component {
     render (){
+        let content;
         const { projects } = this.props;
-        return (
+        projects ?
+        content =
             <div className="dashboard container">
                 <div className="row">
                     <div className="col s12 m6">
@@ -20,8 +22,19 @@ class Dashboard extends Component {
                         <Notifications />
                     </div>
                 </div>
+            </div>:
+        content =
+            <div className="dashboard container">
+                <div className="row">
+                    <div className="col s12 m6">
+                        <h1>Loading...</h1>
+                    </div>
+                    <div className="col s12 m5 offset-m1">
+                        <Notifications />
+                    </div>
+                </div>
             </div>
-        );
+        return content;
     }
 }
 

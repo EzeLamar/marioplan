@@ -1,5 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { compose } from 'redux'
+import { firestoreConnect } from 'react-redux-firebase'
 
 const ProjectDetails = (props) => {
     const id = props.match.params.id;
@@ -20,10 +22,10 @@ const ProjectDetails = (props) => {
                 </div>
             </div> :
         content =
-            <div className="container section project-details">
+            <div className="container center">
                 <div className="card z-depth-0">
                     <div className="card-content">
-                        <span className="card-title">Nada que mostrar</span>
+                        <span className="card-title">Loading...</span>
                     </div>
                 </div>
             </div>
@@ -35,8 +37,11 @@ const mapStateToProps = (state, ownProps) => {
     const projects = state.firestore.ordered.projects;
     const project  = projects&&projects.find(project => project.id === id);
     return {
-        project
+        project: project
     }
 }
 
-export default connect(mapStateToProps)(ProjectDetails);
+export default compose(
+    firestoreConnect(['projects']),
+    connect(mapStateToProps)
+)(ProjectDetails)

@@ -16,6 +16,7 @@ var config = {
   };
 // Initialize Firebase
 firebase.initializeApp(config);
+firebase.firestore();
 //firebase.firestore().settings({ timestampsInShots:true })
 
 export default firebase;

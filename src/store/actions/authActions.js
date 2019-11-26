@@ -1,7 +1,7 @@
-export const signIn = (credentials) => {
-    return (dispatch, getState, {getFirebase}) => {
-        const firebase = getFirebase();
+import firebase from '../../config/fbConfig'
 
+export const signIn = (credentials) => {
+    return (dispatch, getState) => {
         firebase.auth().sigInWithEmailAndPassword(
             credentials.email,
             credentials.password

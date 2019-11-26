@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { signIn } from '../../store/actions/authAction'
+import { signIn } from '../../store/actions/authActions'
 
 class SignIn extends Component {
     state = {
@@ -20,6 +20,7 @@ class SignIn extends Component {
     }
 
     render (){
+        console.log(this.props);
         const { authError } = this.props;
         return (
             <div className="container">

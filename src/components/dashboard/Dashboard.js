@@ -2,20 +2,12 @@ import React,{ Component } from 'react'
 import Notifications from './Notifications'
 import ProjectList from '../projects/ProjectList'
 import { connect } from 'react-redux'
+import { compose } from 'redux'
 
-import {  getProjects } from '../../store/actions/projectActions'
+//import {  getProjects } from '../../store/actions/projectActions'
+import { firestoreConnect } from 'react-redux-firebase'
 
 class Dashboard extends Component {
-
-    componentDidMount() {
-        //hacer fetch
-        this.props.getProjects();
-    }
-
-    handleGetProjects = () => {
-        this.props.getProjects();
-    }
-
     render (){
         const { projects } = this.props;
         return (
@@ -28,23 +20,18 @@ class Dashboard extends Component {
                         <Notifications />
                     </div>
                 </div>
-                <button onClick={this.handleGetProjects}>obtenerProyectos</button>
             </div>
         );
     }
 }
 
 const mapStateToProps = (state) => {
-    console.log(state);
     return {
-        projects: state.project.projects,
+        projects: state.firestore.ordered.projects,
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        getProjects: () => dispatch(getProjects())
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
+export default compose(
+    firestoreConnect(['projects']),
+    connect(mapStateToProps)
+)(Dashboard);

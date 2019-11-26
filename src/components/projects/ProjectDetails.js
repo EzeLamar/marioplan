@@ -31,10 +31,8 @@ const ProjectDetails = (props) => {
 }
 
 const mapStateToProps = (state, ownProps) => {
-    console.log('state',state);
     const id = ownProps.match.params.id;
-    const projects = state.project.projects;
-    console.log('projects',projects);
+    const projects = state.firestore.ordered.projects;
     const project  = projects&&projects.find(project => project.id === id);
     return {
         project

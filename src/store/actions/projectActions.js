@@ -1,5 +1,4 @@
 import firebase from '../../config/fbConfig'
-import projectReducer from '../reducers/projectReducer';
 
 export const createProject = (data) => {
     return (dispatch, getState) => {

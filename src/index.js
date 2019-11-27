@@ -19,6 +19,7 @@ const rrfConfig = {
     useFirestoreForProfile: true // Firestore for Profile instead of Realtime DB
 }
 
+
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
 const rrfProps = {

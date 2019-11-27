@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import SignedInLinks from './SignedInLinks'
 import SignedOutLinks from './SignedOutLinks'
 import { connect } from 'react-redux'
-import { withFirebase,  isEmpty, isLoaded } from 'react-redux-firebase'
 import { signIn, signOut } from '../../store/actions/authActions'
 
 const Navbar = (props) => {
@@ -30,10 +29,14 @@ const Navbar = (props) => {
     const handlerLogOut = () => {
         props.signOut();
     }
-
+    const authError = props.authError;
+    
+    let email;
+    props.auth.email ? email = props.auth.email : email = '.......';
     return (
         <nav className="nav-wrapper grey darken-3">
             <div className="container">
+                {email}
                 <button onClick={handlerLogIn} >Login</button>
                 <button onClick={handlerLogOut} >Logout</button>
                 <Link to='/' className="brand-logo">MarioPlan</Link>

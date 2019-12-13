@@ -19,3 +19,13 @@ export const signOut = () => {
         });
     }
 }
+
+export const signUp = ({email, password, username}) => {
+    return (dispatch, getState) => {
+        firebase.createUser({email, password}, {username, email}).then( () => {
+            dispatch({ type: 'SINGUP_SUCCESS' });
+        }).catch((err) => {
+            dispatch({ type: 'SIGNUP_ERROR', err });
+        });
+    }
+}
